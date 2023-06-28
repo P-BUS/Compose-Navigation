@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.rally.ui.components.RallyTabRow
 import com.example.compose.rally.ui.theme.RallyTheme
@@ -55,8 +56,12 @@ fun RallyApp() {
             topBar = {
                 RallyTabRow(
                     allScreens = rallyTabRowScreens,
-                    onTabSelected = { screen -> currentScreen = screen },
-                    currentScreen = currentScreen
+                    // Pass the callback like this,
+                    // defining the navigation action when a tab is selected:
+                    onTabSelected = { newScreen ->
+                        navController.navigate(newScreen.route)
+                    },
+                    currentScreen = currentScreen,
                 )
             }
         ) { innerPadding ->
@@ -65,7 +70,15 @@ fun RallyApp() {
                 startDestination = Overview.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                //currentScreen.screen()
+                composable(route = Overview.route) {
+                    Overview.screen()
+                }
+                composable(route = Accounts.route) {
+                    Accounts.screen()
+                }
+                composable(route = Bills.route) {
+                    Bills.screen()
+                }
             }
         }
     }
