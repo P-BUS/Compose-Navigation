@@ -99,6 +99,7 @@ fun RallyNavHost(
                     navController.navigateSingleTopTo(Bills.route)
                 },
                 onAccountClick = { accountType ->
+                    // pass the argument to the destination
                     navController.navigateToSingleAccount(accountType)
                 }
             )
@@ -106,6 +107,7 @@ fun RallyNavHost(
         composable(route = Accounts.route) {
             AccountsScreen(
                 onAccountClick = { accountType ->
+                    // pass the argument to the destination
                     navController.navigateToSingleAccount(accountType)
                 }
             )
